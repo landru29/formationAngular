@@ -7,34 +7,34 @@
                 <label for="firstName" class="control-label">First name</label>
 
                 <div class="controls">
-                    <input type="text" name="firstName" id="firstName" class="input-xlarge"/><br/>
+                    <input type="text" name="firstName" id="firstName" class="input-xlarge" ng-model="currentContact.firstName"/><br/>
                 </div>
             </div>
             <div class="control-group">
                 <label for="lastName" class="control-label">Last name</label>
 
                 <div class="controls">
-                    <input type="text" name="lastName" id="lastName" class="input-xlarge"/><br/>
+                    <input type="text" name="lastName" id="lastName" class="input-xlarge" ng-model="currentContact.lastName"/><br/>
                 </div>
             </div>
             <div class="control-group">
                 <label for="address" class="control-label">Address</label>
 
                 <div class="controls">
-                    <textarea rows="3" name="address" id="address" class="input-xlarge"></textarea>
+                    <textarea rows="3" name="address" id="address" class="input-xlarge" ng-model="currentContact.address"></textarea>
                 </div>
             </div>
             <div class="control-group">
                 <label for="phone" class="control-label">Phone</label>
 
                 <div class="controls">
-                    <input type="text" name="phone" id="phone" class="input-xlarge"/><br/>
+                    <input type="text" name="phone" id="phone" class="input-xlarge" ng-model="currentContact.phone"/><br/>
                 </div>
             </div>
             <div class="control-group">
                 <div class="controls">
-                    <input type="submit" value="Save" class="btn btn-primary"/>
-                    <input type="button" value="Cancel" class="btn btn-link"/>
+                    <input type="submit" value="Save" class="btn btn-primary" ng-click="save(currentContact)"/>
+                    <input type="button" value="Cancel" class="btn btn-link" ng-click="backToList()"/>
                 </div>
             </div>
         </form>
