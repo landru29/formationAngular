@@ -51,19 +51,19 @@
                     <div class="input-append">
                         <input type="text" class="input-medium search-query" ng-model="search">
                         <button type="submit" class="btn"><i class="icon-search"></i> Search</button>
-                    </div>
-                    <br />search for: <span ng-bind="search"></span>
+                    </div><br />
+                    <span ng-show="search.length>0">Search for: <span ng-bind="search"></span></span>
                 </form>
 
-                <ul class="unstyled">
-                    <li ng-repeat="contact in contacts | filter:search | orderBy:'lastName'" ><a href="">{{contact.firstName}} {{contact.lastName | uppercase}}</a></li>
+                <ul class="unstyled" ng-show="search.length>0">
+                    <li ng-repeat="contact in filteredContacts=(contacts | filter:search | orderBy:'lastName')" ><a href="">{{contact.firstName}} {{contact.lastName | uppercase}}</a></li>
                 </ul>
             </div>
         </div>
 
-        <div class="span8">
+        <div class="span8" ng-show="search.length>0">
             <div class="row">
-                <div ng-repeat="contact in contacts | filter:search | orderBy:'lastName'" class="contact-card span4">
+                <div ng-repeat="contact in filteredContacts" class="contact-card span4">
                     <div class="contact-card-inner">
                         <h4>{{contact.firstName}} {{contact.lastName | uppercase}}</h4>
 
