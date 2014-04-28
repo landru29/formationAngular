@@ -1,11 +1,6 @@
 'use strict';
 
 
-if (!String.prototype.contains) {
-  String.prototype.contains = function (subStr) {
-    return (this.indexOf(subStr) != -1);
-  }
-}
 
 angular.module('zenContactApp').controller('ContactListController', ['$scope', '$filter', '$location', 'contactService',
   function ($scope, $filter, $location, contactService) {
@@ -33,10 +28,10 @@ angular.module('zenContactApp').controller('ContactEditController', ['$scope', '
       });
     } else {
       $scope.currentContact = {
-        "lastName": "",
-        "firstName": "",
-        "address": "",
-        "phone": ""
+        lastName: '',
+        firstName: '',
+        address: '',
+        phone: ''
       };
     }
 
@@ -47,6 +42,7 @@ angular.module('zenContactApp').controller('ContactEditController', ['$scope', '
     $scope.save = function (contact) {
       contactService.saveContact(contact, function (data) {
         $scope.currentContact = data;
+        $location.path('/list');
       });
     };
   }
