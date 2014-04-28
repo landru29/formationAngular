@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html ng-app="formation">
+
+	<head>
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+
+	<body ng-controller="mainController">
+		<div class="container">
+			<div class="page-header">
+			  <h1>Formation <small ng-bind="formation.name"></small></h1>
+			</div>
+			
+			<div class="panel panel-default">
+			  <div class="panel-heading">
+			  	{{formation.students.length}} stagiaire(s) inscrits
+			  	<span ng-hide="formation.students.length" class="label label-danger">Ajouter des stagiaires !</span>
+			  </div>
+			  <div class="panel-body">
+			    <form ng-submit="add()" class="form-inline" role="form">
+					<div class="form-group">
+						<label class="sr-only" for="prenom">Prenom</label>
+						<input ng-model="input.stagiaire.firstname" type="text" class="form-control" id="prenom" placeholder="Prenom" required />
+					</div>
+					<div class="form-group">
+						<label class="sr-only" for="nom">Nom</label>
+						<input ng-model="input.stagiaire.lastname" type="text" class="form-control" id="nom" placeholder="Nom" required />
+					</div>
+				  	<button type="submit" class="btn btn-default">Ajouter stagiaire</button>
+				</form>
+			  </div>
+			  <ul class="list-group">
+			    <li ng-repeat="student in formation.students" class="list-group-item">
+			    	<student></student>
+			    </li>
+			  </ul>
+			</div>
+
+		</div>
+	</body>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.min.js"></script>
+
+	<script>
+		angular.module("formation", []);
+
+		angular.module("formation").controller("mainController", function($scope){
+			$scope.formation = {
+				name: "AngularJS",
+				students: [{firstname:"Olivier", lastname:"Huber"},{firstname:"Patrick", lastname:"Sensi"}]
+			};
+
+			$scope.add = function(){
+				$scope.formation.students.push($scope.input.stagiaire);
+				$scope.input.stagiaire = {};
+			};
+
+			$scope.delete = function(index){
+				$scope.formation.students.splice(index, 1);
+			};
+		});
+
+		angular.module("formation").filter("
+		mr", function(){
+			return function(input){
+				return 'Mr ' + input;
+			};
+		});
+
+
+		angular.module("formation").directive("student", function(){
+			return {
+				restrict: 'E',
+				template: '{{student.firstname | mr}} {{student.lastname | uppercase}} <button ng-click="delete($index)" type="button" class="close" aria-hidden="true">&times;</button>'
+			};
+		});
+	</script>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html data-ng-app>
+<head>
+    <title>ZenContacts</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <link href="css/bootstrap.css" rel="stylesheet" media="screen">
+    <link href="css/zencontact.css" rel="stylesheet" media="screen">
+</head>
+<body data-ng-init='contacts=[
+    {
+        "id":0,
+"lastName":"Wayne",
+"firstName":"Bruce",
+"address":"Gotham city",
+"phone":"555-BATMAN"
+},
+{
+"id":1,
+"lastName":"Parker",
+"firstName":"Peter",
+"address":"New York",
+"phone":"555-SPDRMN"
+},
+{
+"id":2,
+"lastName":"Storm",
+"firstName":"Jane",
+"address":"Baxter building, New York",
+"phone":"555-INVGRL"
+},
+{
+"id":3,
+"lastName":"Richards",
+"firstName":"Red",
+"address":"Baxter building, New York",
+"phone":"555-MRFANT"
+},
+{
+"id":4,
+"lastName":"Storm",
+"firstName":"Johnny",
+"address":"Baxter building, New York",
+"phone":"555-TORCH"
+},
+{
+"id":5,
+"lastName":"Grimm",
+"firstName":"Benjamin",
+"address":"Baxter building, New York",
+"phone":"555-THING"
+},
+{
+"id":6,
+"lastName":"Murdock",
+"firstName":"Matt",
+"address":"San Francisco",
+"phone":"555-DARDVL"
+},
+{
+"id":7,
+"lastName":"Stark",
+"firstName":"Tony",
+"address":"Stark tower, New York",
+"phone":"555-IRNMAN"
+}
+]
+'>
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="brand" href="#">ZenContacts</a>
+            <ul class="nav">
+                <li class="active">
+                    <a href="contactList.html">My Contacts</a>
+                </li>
+                <li>
+                    <a href="contactEdit.html">Add new contact</a>
+                </li>
+            </ul>
+            <ul class="nav pull-right">
+                <li><a href="#">Login</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="hero-unit">
+        <h1>ZenContacts</h1>
+
+        <h2>Taking care of your people, one at a time.</h2>
+    </div>
+    <div class="row">
+        <div class="span4">
+            <div class="well">
+                <h2>Contacts</h2>
+
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" class="input-medium search-query" data-ng-model="search">
+                        <button type="submit" class="btn"><i class="icon-search"></i> Search</button>
+                    </div>
+                    <p/>
+
+                    <div>Search for: <span data-ng-bind="search"></span></div>
+                </form>
+
+                <ul class="unstyled">
+                    <li data-ng-repeat="contact in contacts | filter:search | orderBy:'lastName'">
+                        <a href=""><span data-ng-bind="contact.firstName">ANDRE</span> <span data-ng-bind="contact.lastName |uppercase">Nicolas</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="span8">
+            <div class="row">
+                <div class="contact-card span4" data-ng-repeat="contact in contacts | filter:search | orderBy:'lastName'">
+                    <div class="contact-card-inner">
+                        <h4><span data-ng-bind="contact.firstName">ANDRE</span> <span data-ng-bind="contact.lastName |uppercase">Nicolas</span></h4>
+
+                        <div class="contact-address" data-ng-bind="contact.address">7 impasse Taga, Londres</div>
+                        <div class="contact-phone" data-ng-bind="contact.phone">01 90 00 09 00</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="js/angular/angular.js"></script>
+</body>
+</html>
