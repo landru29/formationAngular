@@ -1,7 +1,7 @@
 'use strict';
 
 
-function ContactListController($scope) {
+function ContactListController($scope, $filter) {
   $scope.contacts = [{
     "id": 0,
     "lastName": "Wayne",
@@ -51,4 +51,8 @@ function ContactListController($scope) {
     "address": "Stark tower, New York",
     "phone": "555-IRNMAN"
   }];
+
+  $scope.$watch('search', function (newValue, oldValue) {
+    $scope.newFilteredContacts = $filter('orderBy')($filter('filter')($scope.contacts, newValue), 'lastName');
+  });
 }

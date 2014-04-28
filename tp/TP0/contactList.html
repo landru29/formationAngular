@@ -46,23 +46,23 @@
                         </div><br />
                         Search for: <span ng-bind="search"></span>
                         <div ng-show="search.length>0">
-                            <ng-pluralize count="filteredContacts.length"
+                            <ng-pluralize count="newFilteredContacts.length"
                             when="{'0': 'No contact',
                             'one': '1 contact',
-                            'other': '{{filteredContacts.length}} contacts'}">
+                            'other': '{{newFilteredContacts.length}} contacts'}">
                         </ng-pluralize>
                     </div>
                 </form>
 
                 <ul class="unstyled" ng-show="search.length>0">
-                    <li ng-repeat="contact in filteredContacts=(contacts | filter:search | orderBy:'lastName')" ><a href="">{{contact.firstName}} {{contact.lastName | uppercase}}</a></li>
+                    <li ng-repeat="contact in newFilteredContacts"><a href="">{{contact.firstName}} {{contact.lastName | uppercase}}</a></li>
                 </ul>
             </div>
         </div>
 
         <div class="span8" ng-show="search.length>0">
             <div class="row">
-                <div ng-repeat="contact in filteredContacts" class="contact-card span4">
+                <div ng-repeat="contact in newFilteredContacts" class="contact-card span4">
                     <div class="contact-card-inner">
                         <h4>{{contact.firstName}} {{contact.lastName | uppercase}}</h4>
 
