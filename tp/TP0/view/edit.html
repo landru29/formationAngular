@@ -2,19 +2,23 @@
     <div class="well">
         <h2>{{title}}</h2>
 
-        <form action="" method="post" class="form-horizontal">
-            <div class="control-group">
+        <form name="contactForm" method="post" class="form-horizontal" novalidate>
+            <div class="control-group" ng-class="{error:contactForm.firstName.$error.required}">
                 <label for="firstName" class="control-label">First name</label>
 
                 <div class="controls">
-                    <input type="text" name="firstName" id="firstName" class="input-xlarge" ng-model="currentContact.firstName"/><br/>
+                    <input type="text" name="firstName" id="firstName" class="input-xlarge" ng-model="currentContact.firstName" required/>
+                    <span ng-show="contactForm.firstName.$error.required">Required</span>
+                    <br/>
                 </div>
             </div>
-            <div class="control-group">
+            <div class="control-group" ng-class="{error:contactForm.lastName.$error.required}">
                 <label for="lastName" class="control-label">Last name</label>
 
                 <div class="controls">
-                    <input type="text" name="lastName" id="lastName" class="input-xlarge" ng-model="currentContact.lastName"/><br/>
+                    <input type="text" name="lastName" id="lastName" class="input-xlarge" ng-model="currentContact.lastName" required/>
+                    <span ng-show="contactForm.lastName.$error.required">Required</span>
+                    <br/>
                 </div>
             </div>
             <div class="control-group">
@@ -24,14 +28,17 @@
                     <textarea rows="3" name="address" id="address" class="input-xlarge" ng-model="currentContact.address"></textarea>
                 </div>
             </div>
-            <div class="control-group">
+            <div class="control-group" ng-class="{error: contactForm.phone.$error.pattern}">
                 <label for="phone" class="control-label">Phone</label>
 
                 <div class="controls">
-                    <input type="text" name="phone" id="phone" class="input-xlarge" ng-model="currentContact.phone"/><br/>
+                    <input type="text" name="phone" id="phone" class="input-xlarge" ng-model="currentContact.phone" ng-pattern="/^555-[A-Z]{5,6}$/" required/>
+                    <span ng-show="contactForm.phone.$error.required">Required</span>
+                    <span ng-show="contactForm.phone.$error.pattern">Format(555-AZERT[Y])</span>
+                    <br/>
                 </div>
             </div>
-            <div class="control-group">
+            <div class="control-group" ng-show="contactForm.$valid">
                 <div class="controls">
                     <input type="submit" value="Save" class="btn btn-primary" ng-click="save(currentContact)"/>
                     <input type="button" value="Cancel" class="btn btn-link" ng-click="backToList()"/>
