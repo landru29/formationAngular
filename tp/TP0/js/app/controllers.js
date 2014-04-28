@@ -1,7 +1,13 @@
 'use strict';
 
 
-function ContactListController($scope, $filter) {
+if (!String.prototype.contains) {
+  String.prototype.contains = function (subStr) {
+    return (this.indexOf(subStr) != -1);
+  }
+}
+
+var ContactListController = function ($scope, $filter, $location) {
   $scope.contacts = [{
     "id": 0,
     "lastName": "Wayne",
@@ -55,4 +61,18 @@ function ContactListController($scope, $filter) {
   $scope.$watch('search', function (newValue, oldValue) {
     $scope.newFilteredContacts = $filter('orderBy')($filter('filter')($scope.contacts, newValue), 'lastName');
   });
-}
+
+  $scope.edit = function (contact) {
+    $location.path('/edit/' + contact.id);
+  }
+};
+
+var ContactEditController = function ($scope, $route) {
+  $scope.title = $route.current.title;
+};
+
+var NavigationController = function ($scope, $location) {
+  $scope.isActive = function (path) {
+    return $location.path().contains(path);
+  };
+};
