@@ -56,10 +56,10 @@ app.get(context + '/contacts/:id', function (req, res) {
   });
   console.log('GET /contacts/' + req.params.id, 'returning', result);
   // simulate a delay in the server
-  setTimeout(function () {
+  /*setTimeout(function () {
     res.send(result)
-  }, 2000);
-  //res.send(result);
+  }, 2000);*/
+  res.send(result);
 });
 
 var updateHandler = function (req, res) {

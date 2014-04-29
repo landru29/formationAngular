@@ -15,3 +15,37 @@ angular.module('zenContactDirectives').directive('autoHeight', function () {
     }
   };
 });
+
+angular.module('zenContactDirectives').directive('autoPopup', ['$http',
+  function ($http) {
+    return {
+      restrict: 'A',
+      link: function (scope, element, attributes) {
+        element.click(function () {
+          console.log('coucou');
+          $http({
+            method: 'GET',
+            url: 'view/about.html'
+          }).success(function (data) {
+            $(data).modal('show');
+          });
+        });
+      }
+    };
+  }
+]);
+
+angular.module('zenContactDirectives').directive('markdown', ['$sce',
+
+  function ($sce) {
+    return {
+      restrict: 'A',
+      template: '<div class="control-group"><label class="control-label">Markdown</label><div class="controls"><div style="background:white" ng-bind-html="outputMarkdown"></div></div></div>',
+      link: function (scope, element, attributes) {
+        scope.$watch(attributes.markdown, function (value) {
+          scope.outputMarkdown = $sce.trustAsHtml(markdown.toHTML(('undefined' === typeof value) ? '' : value));
+        });
+      }
+    };
+  }
+]);

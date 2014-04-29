@@ -21,10 +21,13 @@
                         <a href="#/edit">{{'add.new.contact' | translate}}</a>
                     </li>
                     <li>
-                        <a ng-click="changeLang('fr')">FR</a>
+                        <a href="#" ng-click="changeLang('fr')">FR</a>
                     </li>
                     <li>
-                        <a ng-click="changeLang('en')">EN</a>
+                        <a href="#" ng-click="changeLang('en')">EN</a>
+                    </li>
+                    <li>
+                        <a href="#" auto-popup="view/about.html">{{'about' | translate}}</a>
                     </li>
                 </ul>
                 <ul class="nav pull-right">
@@ -46,8 +49,12 @@
 
         </div>
     </div>
+
 </body>
 <script src="js/polyfill/string.js"></script>
+<script src="js/jquery/jquery.js"></script>
+<script src="js/bootstrap/bootstrap.js"></script>
+<script src="js/markdown/markdown.js"></script>
 <script src="js/angular/angular.js"></script>
 <script src="js/angular/angular-route.js"></script>
 <script src="js/angular/angular-resource.js"></script>

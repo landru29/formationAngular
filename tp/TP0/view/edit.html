@@ -38,6 +38,14 @@
                     <br/>
                 </div>
             </div>
+            <div class="control-group">
+                <label for="description" class="control-label">Description</label>
+
+                <div class="controls">
+                    <textarea rows="3" name="description" id="description" class="input-xlarge" ng-model="currentContact.description"></textarea>
+                </div>
+            </div>
+            <div markdown="currentContact.description"></div>
             <div class="control-group" ng-show="contactForm.$valid">
                 <div class="controls">
                     <input type="submit" value="Save" class="btn btn-primary" ng-click="save(currentContact)"/>
