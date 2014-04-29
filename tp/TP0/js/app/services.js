@@ -3,10 +3,9 @@
 var zenContactServices = angular.module('zenContactServices', ['ngResource']);
 
 
-zenContactServices.factory('contactService', ['$http', '$resource',
-
-  function ($http, $resource) {
-    var Contact = $resource('/rest/contacts/:id', {
+zenContactServices.factory('Contact', ['$resource',
+  function ($resource) {
+    return $resource('/rest/contacts/:id', {
       id: '@id'
     }, {
       update: {
@@ -16,8 +15,14 @@ zenContactServices.factory('contactService', ['$http', '$resource',
         }
       }
     });
-    var service = {
+  }
+]);
 
+zenContactServices.factory('contactService', ['Contact',
+
+  function (Contact) {
+
+    return {
       getAllContacts: function () {
         return Contact.query();
       },
@@ -36,7 +41,5 @@ zenContactServices.factory('contactService', ['$http', '$resource',
         }
       },
     };
-
-    return service;
   }
 ]);

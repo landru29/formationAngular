@@ -20,7 +20,7 @@ if (process.argv.length == 3)
 
 app.use(express.static(__dirname + '/' + conf.root));
 
-console.log(__dirname + '/'  + conf.root)
+console.log(__dirname + '/' + conf.root)
 
 app.use(express.bodyParser());
 app.use(cors);
@@ -30,7 +30,7 @@ app.get(context + '/contacts', function (req, res) {
   res.send(contacts);
 });
 
-var createHandler = function(req, res) {
+var createHandler = function (req, res) {
   var id = _.max(_.pluck(contacts, 'id')) + 1;
   console.log('POST /contacts with data ', req.body, 'adding id', id);
   req.body.id = id;
@@ -42,13 +42,21 @@ app.post(context + '/contacts', createHandler);
 app.put(context + '/contacts', createHandler);
 
 app.get(context + '/contacts/:id', function (req, res) {
-  var result = _.findWhere(contacts, {id: parseInt(req.params.id)});
+  var result = _.findWhere(contacts, {
+    id: parseInt(req.params.id)
+  });
   console.log('GET /contacts/' + req.params.id, 'returning', result);
-  res.send(result);
+  // simulate a delay in the server
+  setTimeout(function () {
+    res.send(result)
+  }, 2000);
+  //res.send(result);
 });
 
 var updateHandler = function (req, res) {
-  var result = _.findWhere(contacts, {id: parseInt(req.params.id)});
+  var result = _.findWhere(contacts, {
+    id: parseInt(req.params.id)
+  });
   _.extend(result, req.body)
   console.log('PUT /contacts/' + req.params.id + ' with data ', req.body, 'returning', result);
   res.send(result);
@@ -58,26 +66,26 @@ app.put(context + '/contacts/:id', updateHandler);
 app.post(context + '/contacts/:id', updateHandler);
 
 app.delete(context + '/contacts/:id', function (req, res) {
-    var token = req.header(authHeader);
-    var user = token ? _.invert(sessions)[token] : null;
-    console.log ('test ',sessions,  token,user);
-    if (!user) {
-      console.log('DELETE refused, Authentication required!');
-      res.send(401, 'Authentication required!');
-    } else {
-      contacts = _.reject(contacts, function(contact) {
-        return contact.id == req.params.id;
-      });
-      console.log('DELETE /contacts/' + req.params.id);
-      res.send();
-    }
+  var token = req.header(authHeader);
+  var user = token ? _.invert(sessions)[token] : null;
+  console.log('test ', sessions, token, user);
+  if (!user) {
+    console.log('DELETE refused, Authentication required!');
+    res.send(401, 'Authentication required!');
+  } else {
+    contacts = _.reject(contacts, function (contact) {
+      return contact.id == req.params.id;
+    });
+    console.log('DELETE /contacts/' + req.params.id);
+    res.send();
+  }
 });
 
 var loginHandler = function (req, res) {
-    sessions[req.params.user] = uuid.v4();
-    console.log('LOGIN', sessions);
-    res.header(authHeader, sessions[req.params.user]);
-    res.send();
+  sessions[req.params.user] = uuid.v4();
+  console.log('LOGIN', sessions);
+  res.header(authHeader, sessions[req.params.user]);
+  res.send();
 }
 
 app.post(context + '/login/:user', loginHandler);

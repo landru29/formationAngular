@@ -1,6 +1,6 @@
 'use strict';
 
-var zenContactApp = angular.module('zenContactApp', ['ngRoute', 'zenContactServices']);
+angular.module('zenContactApp', ['ngRoute', 'zenContactServices']);
 
 angular.module('zenContactApp').config(['$routeProvider',
   function ($routeProvider) {
@@ -12,12 +12,28 @@ angular.module('zenContactApp').config(['$routeProvider',
       .when('/edit', {
         templateUrl: 'view/edit.html',
         controller: 'ContactEditController',
-        title: 'Insert Contact'
+        title: 'Insert Contact',
+        resolve: {
+          LoadedContact: ['Contact',
+            function (Contact) {
+              return new Contact();
+            }
+          ]
+        }
       })
       .when('/edit/:id', {
         templateUrl: 'view/edit.html',
         controller: 'ContactEditController',
-        title: 'Edit contact'
+        title: 'Edit contact',
+        resolve: {
+          LoadedContact: ['Contact', '$route',
+            function (Contact, $route) {
+              return Contact.get({
+                id: $route.current.pathParams.id
+              }).$promise;
+            }
+          ]
+        }
       })
       .otherwise({
         redirectTo: '/list'

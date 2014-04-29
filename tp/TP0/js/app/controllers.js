@@ -17,19 +17,15 @@ angular.module('zenContactApp').controller('ContactListController', ['$scope', '
 ]);
 
 
-angular.module('zenContactApp').controller('ContactEditController', ['$scope', '$route', '$routeParams', 'contactService', '$location',
-  function ($scope, $route, $routeParams, contactService, $location) {
+angular.module('zenContactApp').controller('ContactEditController', ['$scope', '$route', '$routeParams', 'contactService', '$location', 'Contact', 'LoadedContact',
+  function ($scope, $route, $routeParams, contactService, $location, Contact, LoadedContact) {
     $scope.title = $route.current.title;
-    if ('undefined' !== typeof $routeParams.id) {
+    $scope.currentContact = LoadedContact;
+    /*if ('undefined' !== typeof $routeParams.id) {
       $scope.currentContact = contactService.getContactById($routeParams.id);
     } else {
-      $scope.currentContact = {
-        lastName: '',
-        firstName: '',
-        address: '',
-        phone: ''
-      };
-    }
+      $scope.currentContact = new Contact();
+    }*/
 
     $scope.backToList = function () {
       $location.path('/list');
