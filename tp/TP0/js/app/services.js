@@ -1,55 +1,38 @@
 'use strict';
 
-var zenContactServices = angular.module('zenContactServices', []);
+var zenContactServices = angular.module('zenContactServices', ['ngResource']);
 
 
-zenContactServices.factory('contactService', ['$http',
-  function ($http) {
+zenContactServices.factory('contactService', ['$http', '$resource',
+
+  function ($http, $resource) {
+    var Contact = $resource('/rest/contacts/:id', {
+      id: '@id'
+    }, {
+      update: {
+        method: 'PUT',
+        params: {
+          id: '@id'
+        }
+      }
+    });
     var service = {
 
-      getAllContacts: function (callback) {
-        $http({
-          url: '/rest/contacts',
-          method: 'GET'
-        }).success(function (data) {
-          callback(data);
-        }).error(function () {
-          console.log('error');
+      getAllContacts: function () {
+        return Contact.query();
+      },
+
+      getContactById: function (id) {
+        return Contact.get({
+          id: id
         });
       },
 
-      getContactById: function (id, callback) {
-        $http({
-          url: '/rest/contacts/' + id,
-          method: 'GET'
-        }).success(function (data) {
-          callback(data);
-        }).error(function () {
-          console.log('error');
-        });
-      },
-
-      saveContact: function (contact, callback) {
+      saveContact: function (contact) {
         if ('undefined' === typeof contact.id) {
-          $http({
-            url: '/rest/contacts/',
-            method: 'POST',
-            data: contact
-          }).success(function (data) {
-            callback(data);
-          }).error(function () {
-            console.log('error');
-          });
+          return Contact.save(contact);
         } else {
-          $http({
-            url: '/rest/contacts/' + contact.id,
-            method: 'PUT',
-            data: contact
-          }).success(function (data) {
-            callback(data);
-          }).error(function () {
-            console.log('error during');
-          });
+          return Contact.update(contact);
         }
       },
     };

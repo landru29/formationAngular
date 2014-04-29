@@ -18,7 +18,7 @@
     </form>
 
     <ul class="unstyled" ng-show="search.length>0">
-        <li ng-repeat="contact in newFilteredContacts"><a href="">{{contact.firstName}} {{contact.lastName | uppercase}}</a></li>
+        <li ng-repeat="contact in newFilteredContacts"><a href="#/edit/{{contact.id}}">{{contact.firstName}} {{contact.lastName | uppercase}}</a></li>
     </ul>
 </div>
 </div>

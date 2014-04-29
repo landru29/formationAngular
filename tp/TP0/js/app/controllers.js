@@ -4,9 +4,7 @@
 
 angular.module('zenContactApp').controller('ContactListController', ['$scope', '$filter', '$location', 'contactService',
   function ($scope, $filter, $location, contactService) {
-    contactService.getAllContacts(function (data) {
-      $scope.contacts = data;
-    });
+    $scope.contacts = contactService.getAllContacts();
 
     $scope.$watch('search', function (newValue, oldValue) {
       $scope.newFilteredContacts = $filter('orderBy')($filter('filter')($scope.contacts, newValue), 'lastName');
@@ -23,9 +21,7 @@ angular.module('zenContactApp').controller('ContactEditController', ['$scope', '
   function ($scope, $route, $routeParams, contactService, $location) {
     $scope.title = $route.current.title;
     if ('undefined' !== typeof $routeParams.id) {
-      contactService.getContactById($routeParams.id, function (data) {
-        $scope.currentContact = data;
-      });
+      $scope.currentContact = contactService.getContactById($routeParams.id);
     } else {
       $scope.currentContact = {
         lastName: '',
@@ -40,10 +36,8 @@ angular.module('zenContactApp').controller('ContactEditController', ['$scope', '
     };
 
     $scope.save = function (contact) {
-      contactService.saveContact(contact, function (data) {
-        $scope.currentContact = data;
-        $location.path('/list');
-      });
+      $scope.currentContact = contactService.saveContact(contact);
+      $location.path('/list');
     };
   }
 ]);
