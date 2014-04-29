@@ -13,6 +13,16 @@ angular.module('zenContactApp').controller('ContactListController', ['$scope', '
     $scope.edit = function (contact) {
       $location.path('/edit/' + contact.id);
     };
+
+    $scope.nameFilter = function (contact) {
+      if (('undefined' === typeof contact) || ('undefined' === typeof $scope.search) || ('' === $scope.search.trim())) {
+        return true;
+      }
+      var searchRef =
+        (('undefined' !== typeof contact.firstName) ? contact.firstName.toLowerCase() : '') +
+        (('undefined' !== typeof contact.lastName) ? contact.lastName.toLowerCase() : '');
+      return searchRef.trim().match(new RegExp($scope.search.trim(), 'i'));
+    };
   }
 ]);
 
