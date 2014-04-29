@@ -1,7 +1,6 @@
 'use strict';
 
 
-
 angular.module('zenContactApp').controller('ContactListController', ['$scope', '$filter', '$location', 'contactService',
   function ($scope, $filter, $location, contactService) {
     $scope.contacts = contactService.getAllContacts();
