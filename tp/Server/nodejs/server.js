@@ -25,6 +25,15 @@ console.log(__dirname + '/' + conf.root)
 app.use(express.bodyParser());
 app.use(cors);
 
+app.get(context + '/i10n', function (req, res) {
+  fs = require('fs');
+  console.log('GET ./languages/' + req.query.lang + '.json');
+  fs.readFile('../../TP0/languages/' + req.query.lang + '.json', 'utf8', function (err, data) {
+    console.log('returning', data);
+    res.send(data);
+  });
+});
+
 app.get(context + '/contacts', function (req, res) {
   console.log('GET /contacts return list of', contacts.length, 'contacts');
   res.send(contacts);

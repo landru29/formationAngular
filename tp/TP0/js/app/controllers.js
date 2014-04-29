@@ -38,10 +38,14 @@ angular.module('zenContactApp').controller('ContactEditController', ['$scope', '
   }
 ]);
 
-angular.module('zenContactApp').controller('NavigationController', ['$scope', '$location',
-  function ($scope, $location) {
+angular.module('zenContactApp').controller('NavigationController', ['$scope', '$location', '$translate',
+  function ($scope, $location, $translate) {
     $scope.isActive = function (path) {
       return $location.path().contains(path);
     };
+
+    $scope.changeLang = function (lang) {
+      $translate.use(lang);
+    }
   }
 ]);

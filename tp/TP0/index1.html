@@ -15,10 +15,16 @@
                 <a class="brand" href="#">ZenContacts</a>
                 <ul class="nav">
                     <li ng-class="{active:isActive('/list')}">
-                        <a href="#/list">My Contacts</a>
+                        <a href="#/list">{{'my.contacts' | translate}}</a>
                     </li>
                     <li ng-class="{active:isActive('/edit')}">
-                        <a href="#/edit">Add new contact</a>
+                        <a href="#/edit">{{'add.new.contact' | translate}}</a>
+                    </li>
+                    <li>
+                        <a ng-click="changeLang('fr')">FR</a>
+                    </li>
+                    <li>
+                        <a ng-click="changeLang('en')">EN</a>
                     </li>
                 </ul>
                 <ul class="nav pull-right">
@@ -45,6 +51,9 @@
 <script src="js/angular/angular.js"></script>
 <script src="js/angular/angular-route.js"></script>
 <script src="js/angular/angular-resource.js"></script>
+<script src="js/angular/angular-translate.js"></script>
+<script src="js/angular/angular-translate-loader-static-files.js"></script>
+<script src="js/angular/angular-translate-loader-url.js"></script>
 <script src="js/app/app.js"></script>
 <script src="js/app/controllers.js"></script>
 <script src="js/app/services.js"></script>

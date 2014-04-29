@@ -1,9 +1,9 @@
 'use strict';
 
-angular.module('zenContactApp', ['ngRoute', 'zenContactServices']);
+angular.module('zenContactApp', ['ngRoute', 'zenContactServices', 'pascalprecht.translate']);
 
-angular.module('zenContactApp').config(['$routeProvider',
-  function ($routeProvider) {
+angular.module('zenContactApp').config(['$routeProvider', '$translateProvider',
+  function ($routeProvider, $translateProvider) {
     $routeProvider
       .when('/list', {
         templateUrl: 'view/index.html',
@@ -38,5 +38,15 @@ angular.module('zenContactApp').config(['$routeProvider',
       .otherwise({
         redirectTo: '/list'
       });
+
+    $translateProvider.useStaticFilesLoader({
+      prefix: '/languages/',
+      suffix: '.json'
+    });
+
+    //$translateProvider.userUrlLoader('/rest/l10n');
+    // will request /rest/l10n?lang=en
+
+    $translateProvider.preferredLanguage('en');
   }
 ]);
