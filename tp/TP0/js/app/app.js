@@ -1,6 +1,8 @@
 'use strict';
 
-angular.module('zenContactApp', ['ngRoute', 'zenContactServices', 'pascalprecht.translate', 'zenContactFilter', 'ui.unique']);
+angular.module('zenContactApp', [
+  'ngRoute', 'zenContactServices', 'pascalprecht.translate', 'zenContactFilter', 'ui.unique', 'zenContactDirectives'
+]);
 
 angular.module('zenContactApp').config(['$routeProvider', '$translateProvider',
   function ($routeProvider, $translateProvider) {
