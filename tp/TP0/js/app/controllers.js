@@ -26,7 +26,8 @@ angular.module('zenContactApp').controller('ContactListController', ['$scope', '
 ]);
 
 
-angular.module('zenContactApp').controller('ContactEditController', ['$scope', '$route', '$routeParams', 'contactService', '$location', 'Contact', 'LoadedContact',
+angular.module('zenContactApp').controller('ContactEditController', [
+  '$scope', '$route', '$routeParams', 'contactService', '$location', 'Contact', 'LoadedContact',
   function ($scope, $route, $routeParams, contactService, $location, Contact, LoadedContact) {
     $scope.title = $route.current.title;
     $scope.currentContact = LoadedContact;
@@ -44,17 +45,46 @@ angular.module('zenContactApp').controller('ContactEditController', ['$scope', '
       $scope.currentContact = contactService.saveContact(contact);
       $location.path('/list');
     };
+
+    $scope.delete = function (contact) {
+      contactService.deleteContact(contact).then(function () {
+        $location.path('/list');
+      });
+    };
   }
 ]);
 
-angular.module('zenContactApp').controller('NavigationController', ['$scope', '$location', '$translate',
-  function ($scope, $location, $translate) {
+angular.module('zenContactApp').controller('NavigationController', [
+  '$scope', '$location', '$translate', 'userService',
+
+  function ($scope, $location, $translate, userService) {
     $scope.isActive = function (path) {
       return $location.path().contains(path);
     };
 
     $scope.changeLang = function (lang) {
       $translate.use(lang);
+    };
+
+    $scope.logout = function () {
+      userService.disconnect();
+    }
+  }
+]);
+
+angular.module('zenContactApp').controller('LoginController', ['$scope', '$location', '$http',
+
+  function ($scope, $location, $http) {
+    $scope.backToList = function () {
+      $location.path('/list');
+    }
+
+    $scope.login = function () {
+      $http.post('/rest/login/' + $scope.user.username, {})
+        .success(function () {}).error(function () {
+          $scope.username = '';
+          $scope.password = '';
+        });
     }
   }
 ]);

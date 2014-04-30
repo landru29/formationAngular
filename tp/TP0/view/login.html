@@ -1,0 +1,32 @@
+<div class="span12">
+    <div class="well" auto-height="250">
+        <h2>Login</h2>
+
+        <form name="loginForm" method="post" class="form-horizontal" novalidate>
+            <div class="control-group" ng-class="{error:loginForm.username.$error.required}">
+                <label for="username" class="control-label">Username</label>
+
+                <div class="controls">
+                    <input type="text" name="username" id="username" class="input-xlarge" ng-model="user.username" required/>
+                    <span ng-show="loginForm.username.$error.required">Required</span>
+                    <br/>
+                </div>
+            </div>
+            <div class="control-group" ng-class="{error:loginForm.password.$error.required}">
+                <label for="password" class="control-label">Password</label>
+
+                <div class="controls">
+                    <input type="password" name="password" id="password" class="input-xlarge" ng-model="user.password" required/>
+                    <span ng-show="loginForm.password.$error.required">Required</span>
+                    <br/>
+                </div>
+            </div>
+            <div class="control-group" ng-show="loginForm.$valid">
+                <div class="controls">
+                    <input type="submit" value="Connect" class="btn btn-primary" ng-click="login()"/>
+                    <input type="button" value="Abord" class="btn btn-link" ng-click="backToList()"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

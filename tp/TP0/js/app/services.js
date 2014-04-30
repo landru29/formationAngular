@@ -18,9 +18,9 @@ zenContactServices.factory('Contact', ['$resource',
   }
 ]);
 
-zenContactServices.factory('contactService', ['Contact',
+zenContactServices.factory('contactService', ['Contact', 'userService',
 
-  function (Contact) {
+  function (Contact, userService) {
 
     return {
       getAllContacts: function () {
@@ -40,6 +40,40 @@ zenContactServices.factory('contactService', ['Contact',
           return Contact.update(contact);
         }
       },
+
+      deleteContact: function (contact) {
+        return Contact.delete({
+          id: contact.id
+        }).$promise;
+      }
     };
+  }
+]);
+
+zenContactServices.service('userService', ['$cookieStore',
+
+  function ($cookieStore) {
+
+    return {
+      isConnected: function () {
+        if ($cookieStore.get('token')) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+
+      disconnect: function () {
+        $cookieStore.remove('token');
+      },
+
+      connect: function (token) {
+        $cookieStore.set('token', token);
+      },
+
+      getToken: function () {
+        return $cookieStore.get('token');
+      }
+    }
   }
 ]);
