@@ -8,6 +8,7 @@
     "karma-jasmine": "*",
     "karma-ng-scenario": "*",
     "karma-chrome-launcher": "*",
-    "karma-firefox-launcher": "*"
+    "karma-firefox-launcher": "*",
+    "karma-phantomjs-launcher": "*"
   }
 }

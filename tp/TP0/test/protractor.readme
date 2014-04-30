@@ -1,0 +1,12 @@
+Installer:
+    sudo npm install -g protractor
+
+Lancer: 
+    sudo webdriver-manager update
+    webdriver-manager start
+
+Puis:
+    protractor
+
+supervision dans:
+    http://localhost:4444/wd/hub
