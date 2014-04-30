@@ -49,3 +49,40 @@ angular.module('zenContactDirectives').directive('markdown', ['$sce',
     };
   }
 ]);
+
+
+
+angular.module('zenContactDirectives').directive('zenRepeat', ['$parse',
+  function ($parse) {
+    return {
+      restrict: 'A',
+      transclude: 'element',
+      link: function (scope, element, attributes, controller, transclude) {
+        var match = (/(\w*)\sin\s([\w\.]*)/i).exec(attributes.zenRepeat);
+        var collectionName = match[2];
+        var iteree = match[1];
+        scope.$watchCollection(collectionName, function (newCollection) {
+
+          // remove all children and scopes from the parent
+          angular.forEach(element.parent().children(), function (myElement) {
+            // destroy the scope
+            angular.element(myElement).scope().$destroy();
+            // remove the element
+            myElement.remove();
+          });
+
+          angular.forEach(newCollection, function (myElement) {
+            // Create the scope and append the element data
+            var newScope = scope.$new();
+            newScope[iteree] = myElement;
+            // Clone the dom and add the scope to the parent
+            transclude(newScope, function (clone) {
+              element.parent().append(clone);
+            })
+          });
+
+        });
+      }
+    };
+  }
+]);
